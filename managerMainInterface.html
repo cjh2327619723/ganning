@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="./sdk/sdk.css" />
+    <link rel="stylesheet" href="./sdk/helper.css" />
+    <link rel="stylesheet" href="./sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="./sdk/sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+  "type": "page",
+  "title": "经理端主界面",
+  "body": [
+    {
+      "type": "tabs",
+      "tabs": [
+        {
+          "title": "培训申请管理",
+          "body": [
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": "http://127.0.0.1:5000/getCompanyApply",
+                "messages": {
+                },
+                "requestAdaptor": "",
+                "adaptor": "",
+                "dataType": "json"
+              },
+              "columns": [
+                {
+                  "name": "companyApplyID",
+                  "label": "培训申请ID",
+                  "type": "text",
+                  "id": "u:e45d1e45bddb",
+                  "placeholder": "-"
+                },
+                {
+                  "name": "companyName",
+                  "label": "公司名称",
+                  "type": "text",
+                  "id": "u:b18fbc53650a"
+                },
+                {
+                  "name": "field",
+                  "label": "培训方向",
+                  "type": "text",
+                  "id": "u:976e533c29ec",
+                  "placeholder": "-"
+                },
+                {
+                  "type": "text",
+                  "label": "邮箱地址",
+                  "name": "email",
+                  "id": "u:7dad01ae3146"
+                },
+                {
+                  "type": "date",
+                  "label": "申请时间",
+                  "name": "applyTime",
+                  "id": "u:ee6b7cc85258"
+                },
+                {
+                  "name": "state",
+                  "label": "申请状态",
+                  "type": "text",
+                  "id": "u:4d7cc6e1a8e8",
+                  "placeholder": "-"
+                },
+                {
+                  "type": "operation",
+                  "label": "操作",
+                  "buttons": [
+                    {
+                      "label": "修改",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "primary",
+                      "dialog": {
+                        "type": "dialog",
+                        "title": "修改",
+                        "body": [
+                          {
+                            "type": "form",
+                            "api": {
+                              "method": "post",
+                              "url": "http://127.0.0.1:5000/changeCompanyApply",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {
+                              },
+                              "dataType": "json"
+                            },
+                            "body": [
+                              {
+                                "name": "companyApplyID",
+                                "label": "培训申请ID",
+                                "type": "input-text",
+                                "id": "u:5e8609875f39",
+                                "value": "${companyApplyID}",
+                                "readOnly": true
+                              },
+                              {
+                                "label": "公司名称",
+                                "name": "companyName",
+                                "type": "input-text",
+                                "id": "u:cb3dc13d8d27",
+                                "value": "${companyName}"
+                              },
+                              {
+                                "label": "培训方向",
+                                "name": "field",
+                                "type": "select",
+                                "id": "u:2b82d4d85436",
+                                "multiple": false,
+                                "value": "${field}",
+                                "options": [
+                                  {
+                                    "label": "前端",
+                                    "value": "前端"
+                                  },
+                                  {
+                                    "label": "后端",
+                                    "value": "后端"
+                                  },
+                                  {
+                                    "label": "数据库",
+                                    "value": "数据库"
+                                  },
+                                  {
+                                    "label": "服务器",
+                                    "value": "服务器"
+                                  },
+                                  {
+                                    "label": "人工智能",
+                                    "value": "人工智能"
+                                  },
+                                  {
+                                    "label": "区块链",
+                                    "value": "区块链"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "邮箱地址",
+                                "name": "email",
+                                "type": "input-text",
+                                "id": "u:276199b4409e",
+                                "value": "${email}"
+                              }
+                            ],
+                            "id": "u:672bbe91f7bb",
+                            "actions": [
+                              {
+                                "type": "submit",
+                                "label": "提交",
+                                "primary": true,
+                                "id": "u:200660ebcdf3"
+                              }
+                            ],
+                            "feat": "Insert",
+                            "dsType": "api"
+                          }
+                        ],
+                        "id": "u:a13810d97bdb",
+                        "actions": [
+                          {
+                            "type": "button",
+                            "actionType": "cancel",
+                            "label": "取消",
+                            "id": "u:a3191146b381"
+                          },
+                          {
+                            "type": "button",
+                            "actionType": "confirm",
+                            "label": "确定",
+                            "primary": true,
+                            "id": "u:67adf7e0a68c"
+                          }
+                        ],
+                        "showCloseButton": true,
+                        "closeOnOutside": false,
+                        "closeOnEsc": false,
+                        "showErrorMsg": true,
+                        "showLoading": true
+                      },
+                      "id": "u:9a41683c3ac0",
+                      "disabledOn": "${state != \"未处理\"}"
+                    },
+                    {
+                      "type": "button",
+                      "label": "操作",
+                      "onEvent": {
+                        "click": {
+                          "actions": [
+                            {
+                              "ignoreError": false,
+                              "actionType": "dialog",
+                              "dialog": {
+                                "type": "dialog",
+                                "title": "处理培训申请",
+                                "body": [
+                                  {
+                                    "id": "u:6c4109c6d5a3",
+                                    "type": "form",
+                                    "title": "表单",
+                                    "mode": "horizontal",
+                                    "dsType": "api",
+                                    "feat": "Insert",
+                                    "body": [
+                                      {
+                                        "type": "input-text",
+                                        "label": "培训申请ID",
+                                        "name": "companyApplyID",
+                                        "id": "u:0f2fd3035e89",
+                                        "readOnly": true
+                                      },
+                                      {
+                                        "name": "courseName",
+                                        "label": "课程名称",
+                                        "type": "input-text",
+                                        "id": "u:761bce876225"
+                                      },
+                                      {
+                                        "name": "field",
+                                        "label": "课程方向",
+                                        "type": "input-text",
+                                        "id": "u:56f9bba0309e",
+                                        "readOnly": true
+                                      },
+                                      {
+                                        "name": "courseContent",
+                                        "label": "课程内容",
+                                        "type": "textarea",
+                                        "id": "u:eb65524a5f2e"
+                                      },
+                                      {
+                                        "name": "coursePlace",
+                                        "label": "课程地点",
+                                        "type": "input-text",
+                                        "id": "u:0e0a920385ee"
+                                      },
+                                      {
+                                        "name": "startTime",
+                                        "label": "开始时间",
+                                        "type": "input-date",
+                                        "id": "u:6e4759f117cf"
+                                      },
+                                      {
+                                        "name": "endTime",
+                                        "label": "结束时间",
+                                        "type": "input-date",
+                                        "id": "u:acdb02eb61e4"
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "label": "执行人ID",
+                                        "name": "executorID",
+                                        "id": "u:bb833d0b692a",
+                                        "validateOnChange": true,
+                                        "validateApi": {
+                                          "url": "http://127.0.0.1:5000/verifyExecutor",
+                                          "method": "post",
+                                          "requestAdaptor": "",
+                                          "adaptor": "",
+                                          "messages": {
+                                          },
+                                          "dataType": "json"
+                                        }
+                                      },
+                                      {
+                                        "name": "teacherID",
+                                        "label": "讲师ID",
+                                        "type": "input-text",
+                                        "id": "u:107f78e7240f",
+                                        "validateApi": {
+                                          "url": "http://127.0.0.1:5000/verifyTeacher",
+                                          "method": "post",
+                                          "requestAdaptor": "",
+                                          "adaptor": "",
+                                          "messages": {
+                                          },
+                                          "dataType": "json"
+                                        },
+                                        "validateOnChange": true
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "label": "课程费用",
+                                        "name": "free",
+                                        "id": "u:3660723565d0"
+                                      }
+                                    ],
+                                    "actions": [
+                                      {
+                                        "type": "button",
+                                        "label": "提交",
+                                        "onEvent": {
+                                          "click": {
+                                            "actions": [
+                                              {
+                                                "actionType": "submit",
+                                                "componentId": "u:6c4109c6d5a3"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "level": "primary",
+                                        "id": "u:6ac5d0a6b37c"
+                                      }
+                                    ],
+                                    "resetAfterSubmit": true,
+                                    "api": {
+                                      "url": "http://127.0.0.1:5000/processCourse",
+                                      "method": "post",
+                                      "requestAdaptor": "",
+                                      "adaptor": "",
+                                      "messages": {
+                                      },
+                                      "dataType": "json",
+                                      "data": {
+                                        "courseName": "${courseName}",
+                                        "field": "${field}",
+                                        "courseContent": "${courseContent}",
+                                        "coursePlace": "${coursePlace}",
+                                        "startTime": "${startTime}",
+                                        "endTime": "${endTime}",
+                                        "free": "${free}",
+                                        "executorID": "${executorID}",
+                                        "teacherID": "${teacherID}",
+                                        "companyApplyID": "${companyApplyID}"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "showCloseButton": true,
+                                "showErrorMsg": true,
+                                "showLoading": true,
+                                "className": "app-popover",
+                                "actions": [
+                                  {
+                                    "type": "button",
+                                    "actionType": "cancel",
+                                    "label": "取消",
+                                    "id": "u:b18b9e4ac999"
+                                  },
+                                  {
+                                    "type": "button",
+                                    "actionType": "confirm",
+                                    "label": "确认",
+                                    "primary": true,
+                                    "id": "u:e5698f07d147",
+                                    "level": "primary"
+                                  }
+                                ],
+                                "id": "u:18dfcaf9c91a"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id": "u:62075b92f0fb",
+                      "themeCss": {
+                        "className": {
+                          "border:default": {
+                            "top-border-style": "var(--borders-style-1)",
+                            "left-border-style": "var(--borders-style-1)",
+                            "right-border-style": "var(--borders-style-1)",
+                            "bottom-border-style": "var(--borders-style-1)"
+                          }
+                        }
+                      },
+                      "level": "warning",
+                      "disabledOn": "${state != \"未处理\"}"
+                    },
+                    {
+                      "type": "button",
+                      "label": "删除",
+                      "onEvent": {
+                        "click": {
+                          "actions": [
+                            {
+                              "ignoreError": false,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {
+                              },
+                              "api": {
+                                "url": "http://127.0.0.1:5000/deleteCompanyApply",
+                                "method": "post",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {
+                                },
+                                "data": {
+                                  "companyApplyID": "${companyApplyID}"
+                                }
+                              }
+                            },
+                            {
+                              "componentId": "u:f23de1c65d45",
+                              "ignoreError": false,
+                              "actionType": "reload",
+                              "args": {
+                                "resetPage": true
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id": "u:c728034cc52d",
+                      "placeholder": "-",
+                      "level": "danger",
+                      "confirmText": "是否确认删除？",
+                      "disabledOn": "${state!=\"未处理\"}"
+                    }
+                  ],
+                  "id": "u:6d43c72bbb5b",
+                  "placeholder": "-",
+                  "sortable": false,
+                  "fixed": "",
+                  "className": ""
+                }
+              ],
+              "bulkActions": [
+              ],
+              "itemActions": [
+              ],
+              "features": [
+                "create",
+                "view",
+                "delete",
+                "update"
+              ],
+              "headerToolbar": [
+                {
+                  "type": "bulk-actions",
+                  "align": "left"
+                },
+                {
+                  "type": "export-csv",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "id": "u:b9e49d36b251",
+                  "align": "left"
+                }
+              ],
+              "id": "u:f23de1c65d45",
+              "perPageAvailable": [
+                10
+              ],
+              "messages": {
+              },
+              "loadDataOnce": false,
+              "showHeader": true,
+              "showFooter": true,
+              "footerToolbar": [
+                {
+                  "type": "switch-per-page",
+                  "align": "left"
+                },
+                {
+                  "type": "pagination",
+                  "align": "left"
+                }
+              ],
+              "perPage": 10,
+              "alwaysShowPagination": true,
+              "autoFillHeight": true,
+              "bodyClassName": "",
+              "initFetch": true
+            }
+          ],
+          "id": "u:08b159c71b74"
+        },
+        {
+          "title": "执行人管理",
+          "body": [
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": "http://127.0.0.1:5000/getExecutor"
+              },
+              "bulkActions": [
+              ],
+              "itemActions": [
+              ],
+              "features": [
+                "create",
+                "bulkDelete",
+                "delete"
+              ],
+              "filterColumnCount": 3,
+              "headerToolbar": [
+                {
+                  "label": "新增",
+                  "type": "button",
+                  "actionType": "dialog",
+                  "level": "primary",
+                  "dialog": {
+                    "title": "新增",
+                    "body": [
+                      {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "http://127.0.0.1:5000/addExecutor",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {
+                          },
+                          "dataType": "json"
+                        },
+                        "body": [
+                          {
+                            "type": "input-text",
+                            "name": "username",
+                            "label": "执行人用户名",
+                            "id": "u:b14b8969c941"
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "password",
+                            "label": "执行人密码",
+                            "id": "u:a07fd1dec70c"
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "executorName",
+                            "label": "执行人姓名",
+                            "id": "u:e61113130132"
+                          }
+                        ],
+                        "id": "u:02535ad1e2be",
+                        "actions": [
+                          {
+                            "type": "submit",
+                            "label": "提交",
+                            "primary": true
+                          }
+                        ],
+                        "feat": "Insert",
+                        "dsType": "api"
+                      }
+                    ],
+                    "type": "dialog",
+                    "id": "u:98dbe622edfb",
+                    "actions": [
+                      {
+                        "type": "button",
+                        "actionType": "cancel",
+                        "label": "取消",
+                        "id": "u:f1c2bbacf556"
+                      },
+                      {
+                        "type": "button",
+                        "actionType": "confirm",
+                        "label": "确定",
+                        "primary": true,
+                        "id": "u:8eb254e8e03d",
+                        "onEvent": {
+                          "click": {
+                            "weight": 0,
+                            "actions": [
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "id": "u:c56167d6b83d",
+                  "align": "left"
+                },
+                {
+                  "type": "export-csv",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "align": "left"
+                }
+              ],
+              "id": "u:d68d36d911d4",
+              "perPageAvailable": [
+                10
+              ],
+              "messages": {
+              },
+              "initFetch": true,
+              "footerToolbar": [
+                {
+                  "type": "switch-per-page",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "align": "left"
+                },
+                {
+                  "type": "pagination",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "align": "left"
+                }
+              ],
+              "alwaysShowPagination": true,
+              "perPage": 10,
+              "autoFillHeight": true,
+              "mode": "table",
+              "columns": [
+                {
+                  "name": "id",
+                  "label": "执行人ID",
+                  "type": "text",
+                  "id": "u:d6a9fb65ba95",
+                  "placeholder": "-"
+                },
+                {
+                  "name": "username",
+                  "label": "执行人用户名",
+                  "type": "text",
+                  "id": "u:d93d0af8c575"
+                },
+                {
+                  "type": "text",
+                  "label": "执行人密码",
+                  "name": "password",
+                  "id": "u:c22b5b4b49cd"
+                },
+                {
+                  "type": "text",
+                  "label": "执行人姓名",
+                  "name": "executorName",
+                  "id": "u:dd20b4ef2a62"
+                },
+                {
+                  "type": "operation",
+                  "label": "操作",
+                  "buttons": [
+                    {
+                      "label": "修改",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "info",
+                      "dialog": {
+                        "title": "编辑",
+                        "body": [
+                          {
+                            "type": "form",
+                            "api": {
+                              "method": "post",
+                              "url": "http://127.0.0.1:5000/changeExecutor",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {
+                              },
+                              "dataType": "json"
+                            },
+                            "body": [
+                              {
+                                "name": "id",
+                                "label": "执行人ID",
+                                "type": "input-text",
+                                "id": "u:ca0a27abe290",
+                                "readOnly": true
+                              },
+                              {
+                                "name": "executorName",
+                                "label": "执行人名字",
+                                "type": "input-text",
+                                "id": "u:275c8706a9b1"
+                              },
+                              {
+                                "label": "执行人用户名",
+                                "name": "username",
+                                "type": "input-text",
+                                "id": "u:722034c81401"
+                              },
+                              {
+                                "label": "执行人密码",
+                                "name": "password",
+                                "type": "input-text",
+                                "id": "u:0a1023ffabd7"
+                              }
+                            ],
+                            "id": "u:8925674d5d44",
+                            "actions": [
+                              {
+                                "type": "submit",
+                                "label": "提交",
+                                "primary": true,
+                                "id": "u:02a8a1e1e418"
+                              }
+                            ],
+                            "feat": "Insert",
+                            "dsType": "api"
+                          }
+                        ],
+                        "type": "dialog",
+                        "id": "u:783e67ee463f",
+                        "actions": [
+                          {
+                            "type": "button",
+                            "actionType": "cancel",
+                            "label": "取消",
+                            "id": "u:ce936a973e43"
+                          },
+                          {
+                            "type": "button",
+                            "actionType": "confirm",
+                            "label": "确定",
+                            "primary": true,
+                            "id": "u:a6c8342b663d"
+                          }
+                        ]
+                      },
+                      "id": "u:53bd0588d06f"
+                    },
+                    {
+                      "type": "button",
+                      "label": "删除",
+                      "actionType": "ajax",
+                      "level": "danger",
+                      "className": "text-danger",
+                      "confirmText": "确定要删除？",
+                      "api": {
+                        "method": "get",
+                        "url": "http://127.0.0.1:5000/getTeacher",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {
+                        },
+                        "dataType": "json"
+                      },
+                      "id": "u:25167d398b8b",
+                      "themeCss": {
+                        "className": {
+                          "font:default": {
+                            "color": "var(--colors-neutral-fill-11)"
+                          }
+                        }
+                      },
+                      "onEvent": {
+                        "click": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "ignoreError": false,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {
+                              },
+                              "api": {
+                                "url": "http://127.0.0.1:5000/deleteExecutor",
+                                "method": "post",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {
+                                },
+                                "dataType": "json",
+                                "data": {
+                                  "executorID": "${id}"
+                                }
+                              }
+                            },
+                            {
+                              "componentId": "u:d68d36d911d4",
+                              "ignoreError": false,
+                              "actionType": "reload",
+                              "args": {
+                                "resetPage": true
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "id": "u:44ba524ce691"
+                }
+              ],
+              "combineNum": 0,
+              "showHeader": true,
+              "footable": false,
+              "columnsTogglable": true,
+              "showFooter": true,
+              "autoJumpToTopOnPagerChange": true,
+              "loadDataOnce": true
+            }
+          ],
+          "id": "u:a847e7670061"
+        },
+        {
+          "title": "讲师管理",
+          "body": [
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": "http://127.0.0.1:5000/getTeacher",
+                "requestAdaptor": "",
+                "adaptor": "",
+                "messages": {
+                },
+                "dataType": "json"
+              },
+              "columns": [
+                {
+                  "name": "teacherID",
+                  "label": "教师ID",
+                  "type": "text",
+                  "id": "u:1aa074fd639f"
+                },
+                {
+                  "name": "teacherName",
+                  "label": "教师名字",
+                  "type": "text",
+                  "id": "u:ab2b1505b027",
+                  "placeholder": "-"
+                },
+                {
+                  "type": "text",
+                  "label": "教师职称",
+                  "name": "teacherTitle",
+                  "id": "u:bfabbdda7567"
+                },
+                {
+                  "type": "text",
+                  "label": "教师领域",
+                  "name": "teacherField",
+                  "id": "u:48eebb10d722"
+                },
+                {
+                  "type": "text",
+                  "label": "教师邮箱地址",
+                  "name": "teacherEmail",
+                  "id": "u:015566f603ea"
+                },
+                {
+                  "type": "text",
+                  "label": "教师电话",
+                  "name": "teacherPhone",
+                  "id": "u:58bc8b73c720"
+                },
+                {
+                  "type": "operation",
+                  "label": "操作",
+                  "buttons": [
+                    {
+                      "label": "修改",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "info",
+                      "dialog": {
+                        "title": "编辑",
+                        "body": [
+                          {
+                            "type": "form",
+                            "api": {
+                              "method": "post",
+                              "url": "http://127.0.0.1:5000/changeTeacher",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {
+                              },
+                              "dataType": "json"
+                            },
+                            "body": [
+                              {
+                                "name": "teacherID",
+                                "label": "教师ID",
+                                "type": "input-text",
+                                "id": "u:182e5b261d1e",
+                                "readOnly": true
+                              },
+                              {
+                                "name": "teacherName",
+                                "label": "教师名子",
+                                "type": "input-text",
+                                "id": "u:0f07e72e4032"
+                              },
+                              {
+                                "label": "教师职称",
+                                "name": "teacherTitle",
+                                "type": "select",
+                                "id": "u:f074073026d1",
+                                "options": [
+                                  {
+                                    "label": "教授",
+                                    "value": "教授"
+                                  },
+                                  {
+                                    "label": "副教授",
+                                    "value": "副教授"
+                                  },
+                                  {
+                                    "label": "讲师",
+                                    "value": "讲师"
+                                  }
+                                ],
+                                "multiple": false,
+                                "value": "教授",
+                                "selectFirst": true
+                              },
+                              {
+                                "label": "教师领域",
+                                "name": "teacherField",
+                                "type": "select",
+                                "id": "u:4b0404685c2c",
+                                "options": [
+                                  {
+                                    "label": "前端",
+                                    "value": "前端"
+                                  },
+                                  {
+                                    "label": "后端",
+                                    "value": "后端"
+                                  },
+                                  {
+                                    "label": "数据库",
+                                    "value": "数据库"
+                                  },
+                                  {
+                                    "label": "服务器",
+                                    "value": "服务器"
+                                  },
+                                  {
+                                    "label": "人工智能",
+                                    "value": "人工智能"
+                                  },
+                                  {
+                                    "label": "区块链",
+                                    "value": "区块链"
+                                  }
+                                ],
+                                "multiple": false,
+                                "value": "前端",
+                                "selectFirst": true
+                              },
+                              {
+                                "label": "教师邮箱地址",
+                                "name": "teacherEmail",
+                                "type": "input-text",
+                                "id": "u:463d1e9eab67"
+                              },
+                              {
+                                "label": "教师电话",
+                                "name": "teacherPhone",
+                                "type": "input-text",
+                                "id": "u:77a2ba4504e0"
+                              }
+                            ],
+                            "id": "u:d7e84fa37e88",
+                            "actions": [
+                              {
+                                "type": "submit",
+                                "label": "提交",
+                                "primary": true
+                              }
+                            ],
+                            "feat": "Insert",
+                            "dsType": "api"
+                          }
+                        ],
+                        "type": "dialog",
+                        "id": "u:9742fc5d469e",
+                        "actions": [
+                          {
+                            "type": "button",
+                            "actionType": "cancel",
+                            "label": "取消",
+                            "id": "u:8988ef25022f"
+                          },
+                          {
+                            "type": "button",
+                            "actionType": "confirm",
+                            "label": "确定",
+                            "primary": true,
+                            "id": "u:d8e6b3632c35"
+                          }
+                        ]
+                      },
+                      "id": "u:c63220c3a138"
+                    },
+                    {
+                      "type": "button",
+                      "label": "删除",
+                      "actionType": "ajax",
+                      "level": "danger",
+                      "className": "text-danger",
+                      "confirmText": "确定要删除？",
+                      "api": {
+                        "method": "get",
+                        "url": "http://127.0.0.1:5000/getTeacher",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {
+                        },
+                        "dataType": "json"
+                      },
+                      "id": "u:bd21c337882d",
+                      "themeCss": {
+                        "className": {
+                          "font:default": {
+                            "color": "var(--colors-neutral-fill-11)"
+                          }
+                        }
+                      },
+                      "onEvent": {
+                        "click": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "ignoreError": false,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {
+                              },
+                              "api": {
+                                "url": "http://127.0.0.1:5000/deleteTeacher",
+                                "method": "post",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {
+                                },
+                                "dataType": "json",
+                                "data": {
+                                  "teacherID": "${teacherID}"
+                                }
+                              }
+                            },
+                            {
+                              "componentId": "u:9832e4c5b6ca",
+                              "ignoreError": false,
+                              "actionType": "reload",
+                              "args": {
+                                "resetPage": true
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "id": "u:fd1a48007f61"
+                }
+              ],
+              "bulkActions": [
+              ],
+              "itemActions": [
+              ],
+              "features": [
+                "create",
+                "delete",
+                "view",
+                "update"
+              ],
+              "headerToolbar": [
+                {
+                  "label": "新增",
+                  "type": "button",
+                  "actionType": "dialog",
+                  "level": "primary",
+                  "dialog": {
+                    "title": "新增",
+                    "body": [
+                      {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "http://127.0.0.1:5000/addTeacher",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {
+                          },
+                          "dataType": "json"
+                        },
+                        "body": [
+                          {
+                            "type": "input-text",
+                            "name": "teacherName",
+                            "label": "教师名子",
+                            "id": "u:48af4ce60104"
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "teacherEmail",
+                            "label": "教师邮箱地址",
+                            "id": "u:e379e79c3b60"
+                          },
+                          {
+                            "type": "select",
+                            "label": "教师职称",
+                            "name": "teacherTitle",
+                            "options": [
+                              {
+                                "label": "教授",
+                                "value": "教授"
+                              },
+                              {
+                                "label": "副教授",
+                                "value": "副教授"
+                              },
+                              {
+                                "label": "讲师",
+                                "value": "讲师"
+                              }
+                            ],
+                            "id": "u:903fe1e1ffb6",
+                            "multiple": false,
+                            "value": "教授",
+                            "selectFirst": true
+                          },
+                          {
+                            "type": "select",
+                            "label": "教师领域",
+                            "name": "teacherField",
+                            "options": [
+                              {
+                                "label": "前端",
+                                "value": "前端"
+                              },
+                              {
+                                "label": "后端",
+                                "value": "后端"
+                              },
+                              {
+                                "label": "数据库",
+                                "value": "数据库"
+                              },
+                              {
+                                "label": "服务器",
+                                "value": "服务器"
+                              },
+                              {
+                                "label": "人工智能",
+                                "value": "人工智能"
+                              },
+                              {
+                                "label": "区块链",
+                                "value": "区块链"
+                              }
+                            ],
+                            "id": "u:eb8625323173",
+                            "multiple": false,
+                            "value": "前端",
+                            "selectFirst": true
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "teacherPhone",
+                            "label": "教师电话",
+                            "id": "u:3c1c25ef9c8d"
+                          }
+                        ],
+                        "id": "u:6a02bba82543",
+                        "actions": [
+                          {
+                            "type": "submit",
+                            "label": "提交",
+                            "primary": true
+                          }
+                        ],
+                        "feat": "Insert",
+                        "dsType": "api"
+                      }
+                    ],
+                    "type": "dialog",
+                    "id": "u:2a4725cc9475",
+                    "actions": [
+                      {
+                        "type": "button",
+                        "actionType": "cancel",
+                        "label": "取消",
+                        "id": "u:709f76c354c3"
+                      },
+                      {
+                        "type": "button",
+                        "actionType": "confirm",
+                        "label": "确定",
+                        "primary": true,
+                        "id": "u:a3d899a41852"
+                      }
+                    ]
+                  },
+                  "id": "u:e8730e8e9d17",
+                  "align": "left"
+                },
+                {
+                  "type": "bulk-actions",
+                  "align": "left"
+                },
+                {
+                  "type": "export-csv",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "align": "left"
+                }
+              ],
+              "id": "u:9832e4c5b6ca",
+              "perPageAvailable": [
+                10
+              ],
+              "messages": {
+              },
+              "alwaysShowPagination": true,
+              "autoFillHeight": true,
+              "footerToolbar": [
+                {
+                  "type": "switch-per-page",
+                  "align": "left"
+                },
+                {
+                  "type": "pagination",
+                  "align": "left"
+                }
+              ],
+              "loadDataOnce": false,
+              "primaryField": "teacherID"
+            }
+          ]
+        }
+      ],
+      "id": "u:0f2b251e7b12",
+      "tabsMode": "vertical",
+      "toolbar": [
+      ],
+      "defaultKey": "",
+      "className": "",
+      "contentClassName": "",
+      "linksClassName": "",
+      "toolbarClassName": "",
+      "activeKey": "",
+      "mountOnEnter": true,
+      "onEvent": {
+      }
+    }
+  ],
+  "id": "u:27379f2098b0",
+  "regions": [
+    "body",
+    "header"
+  ],
+  "pullRefresh": {
+    "disabled": true
+  },
+  "asideResizor": true,
+  "asideSticky": false,
+  "themeCss": {
+    "titleControlClassName": {
+      "font:hover": {
+        "font-family": "-apple-system"
+      },
+      "font:default": {
+      }
+    },
+    "headerControlClassName": {
+      "background:hover": "var(--colors-brand-5)",
+      "background:default": "var(--colors-brand-5)"
+    },
+    "bodyControlClassName": {
+      "padding-and-margin:default": {
+        "marginTop": "var(--sizes-size-0)",
+        "marginRight": "var(--sizes-size-0)",
+        "marginBottom": "var(--sizes-size-0)",
+        "marginLeft": "var(--sizes-size-0)",
+        "paddingTop": "var(--sizes-size-0)",
+        "paddingRight": "var(--sizes-size-0)",
+        "paddingBottom": "var(--sizes-size-0)",
+        "paddingLeft": "var(--sizes-size-0)"
+      }
+    }
+  }
+};
+        let amisScoped = amis.embed('#root', amisJSON);
+      })();
+    </script>
+  </body>
+</html>

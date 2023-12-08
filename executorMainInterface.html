@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="./sdk/sdk.css" />
+    <link rel="stylesheet" href="./sdk/helper.css" />
+    <link rel="stylesheet" href="./sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="./sdk/sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+  "type": "page",
+  "title": "执行人端主页面",
+  "body": [
+    {
+      "type": "tabs",
+      "tabs": [
+        {
+          "title": "课程信息查看",
+          "body": [
+            {
+              "type": "crud",
+              "id": "u:26072d3879b3",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": "http://127.0.0.1:5000/getCourseForExecutor",
+                "requestAdaptor": "",
+                "adaptor": "",
+                "messages": {
+                }
+              },
+              "columns": [
+                {
+                  "name": "courseID",
+                  "label": "课程ID",
+                  "type": "text",
+                  "id": "u:aef5fe0f2e52"
+                },
+                {
+                  "name": "teacherName",
+                  "label": "教师名字",
+                  "type": "text",
+                  "id": "u:6a3e82afd1d2"
+                },
+                {
+                  "type": "text",
+                  "label": "教师职称",
+                  "name": "teacherTitle",
+                  "id": "u:e1efa08341a8"
+                },
+                {
+                  "type": "text",
+                  "label": "教师领域",
+                  "name": "teacherField",
+                  "id": "u:44c47e6e2a7c"
+                },
+                {
+                  "type": "text",
+                  "label": "教师邮箱",
+                  "name": "teacherEmail",
+                  "id": "u:dd0a253dc738"
+                },
+                {
+                  "type": "text",
+                  "label": "教师电话",
+                  "name": "teacherPhone",
+                  "id": "u:a3d74f9ef48c"
+                },
+                {
+                  "type": "text",
+                  "label": "课程名称",
+                  "name": "courseName",
+                  "id": "u:efa3e8758033"
+                },
+                {
+                  "type": "text",
+                  "label": "课程内容",
+                  "name": "courseContent",
+                  "id": "u:b4f8ea5a6aec"
+                },
+                {
+                  "type": "text",
+                  "label": "课程方向",
+                  "name": "field",
+                  "id": "u:67710c8db808"
+                },
+                {
+                  "type": "text",
+                  "label": "培训地点",
+                  "name": "coursePlace",
+                  "id": "u:a2838d181140"
+                },
+                {
+                  "type": "text",
+                  "label": "培训开始时间",
+                  "name": "startTime",
+                  "id": "u:7968c4f85547"
+                },
+                {
+                  "type": "text",
+                  "label": "培训结束时间",
+                  "name": "endTime",
+                  "id": "u:e508774be728"
+                },
+                {
+                  "type": "text",
+                  "label": "培训费用",
+                  "name": "free",
+                  "id": "u:6470d60592d6"
+                },
+                {
+                  "type": "status",
+                  "id": "u:9a7cd448037e",
+                  "label": "课程状态",
+                  "placeholder": "-",
+                  "name": "courseState"
+                },
+                {
+                  "type": "button",
+                  "label": "发送培训通知",
+                  "onEvent": {
+                    "click": {
+                      "actions": [
+                        {
+                          "ignoreError": false,
+                          "outputVar": "responseResult",
+                          "actionType": "ajax",
+                          "options": {
+                          },
+                          "api": {
+                            "url": "http://127.0.0.1:5000/sendCourseInfo",
+                            "method": "post",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {
+                            },
+                            "dataType": "json",
+                            "data": {
+                              "courseID": "${courseID}"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "id": "u:ac2b95c89cf1",
+                  "level": "info",
+                  "disabledOn": "${courseState!=\"schedule\"}"
+                }
+              ],
+              "bulkActions": [
+              ],
+              "itemActions": [
+              ],
+              "features": [
+                "view"
+              ],
+              "perPageAvailable": [
+                10
+              ],
+              "messages": {
+              },
+              "footerToolbar": [
+                {
+                  "type": "pagination",
+                  "align": "left"
+                },
+                {
+                  "type": "switch-per-page",
+                  "align": "left"
+                }
+              ],
+              "alwaysShowPagination": true,
+              "autoFillHeight": true,
+              "combineNum": "",
+              "columnsTogglable": "auto",
+              "affixHeader": true,
+              "primaryField": "id",
+              "showHeader": true,
+              "header": [
+              ],
+              "headerToolbar": [
+                {
+                  "type": "bulk-actions",
+                  "align": "left"
+                },
+                {
+                  "type": "export-csv",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "id": "u:c5c61d56bfc2",
+                  "align": "left"
+                }
+              ]
+            }
+          ],
+          "id": "u:1880a88a7659"
+        },
+        {
+          "title": "报名表管理",
+          "body": [
+            {
+              "id": "u:e7fd6593d352",
+              "type": "form",
+              "title": "",
+              "mode": "horizontal",
+              "dsType": "api",
+              "feat": "Insert",
+              "body": [
+                {
+                  "name": "courseID",
+                  "label": "请输入课程ID",
+                  "type": "input-text",
+                  "id": "u:fef9c2860ade",
+                  "validateOnChange": true,
+                  "validateApi": {
+                    "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                    "method": "post",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "size": "md",
+                  "mode": "inline"
+                },
+                {
+                  "type": "button",
+                  "label": "查询",
+                  "onEvent": {
+                    "click": {
+                      "weight": 0,
+                      "actions": [
+                        {
+                          "componentId": "u:0101e21b3ab9",
+                          "ignoreError": false,
+                          "actionType": "reload",
+                          "args": {
+                            "resetPage": true
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "level": "primary",
+                  "id": "u:51c5fd37017a",
+                  "themeCss": {
+                    "className": {
+                      "padding-and-margin:default": {
+                        "marginLeft": "0",
+                        "marginBottom": "0px"
+                      }
+                    }
+                  },
+                  "block": false,
+                  "size": "md"
+                },
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "post",
+                    "url": "http://127.0.0.1:5000/getEntryformByCourseID",
+                    "messages": {
+                    },
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "bulkActions": [
+                  ],
+                  "itemActions": [
+                  ],
+                  "features": [
+                    "update"
+                  ],
+                  "id": "u:0101e21b3ab9",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {
+                  },
+                  "filter": null,
+                  "visible": true,
+                  "footerToolbar": [
+                    {
+                      "type": "switch-per-page",
+                      "align": "left"
+                    },
+                    {
+                      "type": "pagination",
+                      "align": "left"
+                    }
+                  ],
+                  "alwaysShowPagination": true,
+                  "autoFillHeight": true,
+                  "hidden": false,
+                  "initFetch": false,
+                  "headerToolbar": [
+                    {
+                      "type": "bulk-actions",
+                      "align": "left"
+                    },
+                    {
+                      "type": "export-csv",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:0a4e80d4c419",
+                      "align": "left"
+                    }
+                  ],
+                  "mode": "table",
+                  "columns": [
+                    {
+                      "name": "entryformID",
+                      "label": "报名表ID",
+                      "type": "text",
+                      "id": "u:9056af040c98"
+                    },
+                    {
+                      "name": "isCompany",
+                      "label": "是否来自申请培训的公司",
+                      "type": "text",
+                      "id": "u:7a9d0ba21bd6"
+                    },
+                    {
+                      "type": "text",
+                      "label": "学员姓名",
+                      "name": "studentName",
+                      "id": "u:75fa076f2153"
+                    },
+                    {
+                      "type": "text",
+                      "label": "学员性别",
+                      "name": "studentSex",
+                      "id": "u:251a33c0e6ba"
+                    },
+                    {
+                      "type": "text",
+                      "label": "学员领域",
+                      "name": "studentField",
+                      "id": "u:bfbe9e5cafff"
+                    },
+                    {
+                      "type": "text",
+                      "label": "学员水平",
+                      "name": "studentLevel",
+                      "id": "u:29873d4004a9"
+                    },
+                    {
+                      "type": "text",
+                      "label": "学员邮箱",
+                      "name": "studentEmail",
+                      "id": "u:351344a94311"
+                    },
+                    {
+                      "type": "text",
+                      "label": "报名状态",
+                      "name": "entryformState",
+                      "id": "u:e8bd8fa1a2e3"
+                    },
+                    {
+                      "type": "operation",
+                      "label": "操作",
+                      "buttons": [
+                        {
+                          "label": "操作",
+                          "type": "button",
+                          "actionType": "dialog",
+                          "level": "info",
+                          "dialog": {
+                            "title": "编辑",
+                            "body": [
+                              {
+                                "type": "form",
+                                "api": {
+                                  "method": "post",
+                                  "url": "http://127.0.0.1:5000/changeEntryformState",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {
+                                  },
+                                  "dataType": "json",
+                                  "data": {
+                                    "entryformID": "${entryformID}",
+                                    "entryformState": "${entryformState}"
+                                  }
+                                },
+                                "body": [
+                                  {
+                                    "name": "entryformID",
+                                    "label": "报名表ID",
+                                    "type": "input-text",
+                                    "id": "u:8e837fd50679",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "name": "isCompany",
+                                    "label": "是否来自申请培训的公司",
+                                    "type": "input-text",
+                                    "id": "u:13a800be818a",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "label": "学员姓名",
+                                    "name": "studentName",
+                                    "type": "input-text",
+                                    "id": "u:49ee00574ec6",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "label": "学员性别",
+                                    "name": "studentSex",
+                                    "type": "input-text",
+                                    "id": "u:1729051ddf41",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "label": "学员领域",
+                                    "name": "studentField",
+                                    "type": "input-text",
+                                    "id": "u:20d2dd89934f",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "label": "学员水平",
+                                    "name": "studentLevel",
+                                    "type": "input-text",
+                                    "id": "u:1b0602e755e1",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "label": "学员邮箱",
+                                    "name": "studentEmail",
+                                    "type": "input-text",
+                                    "id": "u:63411c604379",
+                                    "readOnly": true
+                                  },
+                                  {
+                                    "type": "select",
+                                    "label": "报名表状态",
+                                    "name": "entryformState",
+                                    "options": [
+                                      {
+                                        "label": "已报名",
+                                        "value": "已报名"
+                                      },
+                                      {
+                                        "label": "同意报名",
+                                        "value": "同意报名"
+                                      },
+                                      {
+                                        "label": "拒绝报名",
+                                        "value": "拒绝报名"
+                                      }
+                                    ],
+                                    "id": "u:f13ce44df4d6",
+                                    "multiple": false,
+                                    "value": "已报名",
+                                    "selectFirst": true
+                                  }
+                                ],
+                                "id": "u:b3bd94426045",
+                                "actions": [
+                                  {
+                                    "type": "submit",
+                                    "label": "提交",
+                                    "primary": true
+                                  }
+                                ],
+                                "feat": "Insert",
+                                "dsType": "api"
+                              }
+                            ],
+                            "type": "dialog",
+                            "id": "u:65aa012f7cf1",
+                            "actions": [
+                              {
+                                "type": "button",
+                                "actionType": "cancel",
+                                "label": "取消",
+                                "id": "u:caf3ea56570c"
+                              },
+                              {
+                                "type": "button",
+                                "actionType": "confirm",
+                                "label": "确定",
+                                "primary": true,
+                                "id": "u:27e3dfde9d12"
+                              }
+                            ]
+                          },
+                          "id": "u:3f36ba975026",
+                          "disabledOn": "${entryformState!=\"已报名\"}"
+                        }
+                      ],
+                      "id": "u:35eb2ed5362a"
+                    }
+                  ]
+                }
+              ],
+              "api": {
+                "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                "method": "get"
+              },
+              "resetAfterSubmit": true,
+              "horizontal": {
+                "leftFixed": "lg"
+              },
+              "columnCount": 0,
+              "actions": [
+                {
+                  "type": "button",
+                  "label": "开课",
+                  "onEvent": {
+                    "click": {
+                      "actions": [
+                        {
+                          "ignoreError": false,
+                          "outputVar": "responseResult",
+                          "actionType": "ajax",
+                          "options": {
+                          },
+                          "api": {
+                            "url": "http://127.0.0.1:5000/openCourse",
+                            "method": "post",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {
+                            },
+                            "dataType": "json",
+                            "data": {
+                              "courseID": "${courseID}"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "id": "u:8530d5adf8a6",
+                  "level": "warning",
+                  "size": "lg",
+                  "confirmText": "是否确定开课并发送开课提醒邮件？",
+                  "disabledOn": ""
+                }
+              ]
+            }
+          ],
+          "id": "u:31c0210f884f"
+        },
+        {
+          "title": "学员签到管理",
+          "body": [
+            {
+              "id": "u:d9dc2d27aa59",
+              "type": "form",
+              "title": "",
+              "mode": "horizontal",
+              "dsType": "api",
+              "feat": "Insert",
+              "body": [
+                {
+                  "name": "courseID",
+                  "label": "请输入课程ID",
+                  "type": "input-text",
+                  "id": "u:d298f5d9cfdb",
+                  "validateOnChange": true,
+                  "validateApi": {
+                    "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                    "method": "post",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "size": "md",
+                  "mode": "inline"
+                },
+                {
+                  "type": "button",
+                  "label": "查询",
+                  "onEvent": {
+                    "click": {
+                      "weight": 0,
+                      "actions": [
+                        {
+                          "componentId": "u:8e4bf4626d44",
+                          "ignoreError": false,
+                          "actionType": "reload",
+                          "args": {
+                            "resetPage": true
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "level": "primary",
+                  "id": "u:10a0a3fce21c",
+                  "themeCss": {
+                    "className": {
+                      "padding-and-margin:default": {
+                        "marginLeft": "0",
+                        "marginBottom": "0px"
+                      }
+                    }
+                  },
+                  "block": false,
+                  "size": "md"
+                },
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "post",
+                    "url": "http://127.0.0.1:5000/getComeAndPay",
+                    "messages": {
+                    },
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "name": "id",
+                      "label": "id",
+                      "type": "text",
+                      "id": "u:66656b563b31",
+                      "placeholder": "-"
+                    },
+                    {
+                      "name": "studentName",
+                      "label": "学员姓名",
+                      "type": "text",
+                      "id": "u:c38db507ff1c"
+                    },
+                    {
+                      "name": "isCome",
+                      "label": "是否签到",
+                      "type": "text",
+                      "id": "u:9f4db3a70490"
+                    },
+                    {
+                      "type": "text",
+                      "label": "是否缴费",
+                      "name": "isPayed",
+                      "id": "u:e587afbf7f2a"
+                    },
+                    {
+                      "type": "grid",
+                      "columns": [
+                        {
+                          "body": [
+                            {
+                              "type": "button",
+                              "label": "确认签到",
+                              "onEvent": {
+                                "click": {
+                                  "actions": [
+                                    {
+                                      "ignoreError": false,
+                                      "outputVar": "responseResult",
+                                      "actionType": "ajax",
+                                      "options": {
+                                      },
+                                      "api": {
+                                        "url": "http://127.0.0.1:5000/changeCome",
+                                        "method": "post",
+                                        "requestAdaptor": "",
+                                        "adaptor": "",
+                                        "messages": {
+                                        },
+                                        "data": {
+                                          "id": "${id}"
+                                        },
+                                        "dataType": "json"
+                                      }
+                                    },
+                                    {
+                                      "componentId": "u:8e4bf4626d44",
+                                      "ignoreError": false,
+                                      "actionType": "reload",
+                                      "args": {
+                                        "resetPage": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "id": "u:f13413678930",
+                              "level": "primary",
+                              "confirmText": "是否确认签到？",
+                              "disabledOn": "${isCome!=\"否\"}"
+                            }
+                          ],
+                          "id": "u:03f133397c60",
+                          "md": 2
+                        },
+                        {
+                          "body": [
+                            {
+                              "type": "button",
+                              "label": "确认缴费",
+                              "onEvent": {
+                                "click": {
+                                  "actions": [
+                                    {
+                                      "ignoreError": false,
+                                      "outputVar": "responseResult",
+                                      "actionType": "ajax",
+                                      "options": {
+                                      },
+                                      "api": {
+                                        "url": "http://127.0.0.1:5000/changePay",
+                                        "method": "post",
+                                        "requestAdaptor": "",
+                                        "adaptor": "",
+                                        "messages": {
+                                        },
+                                        "dataType": "json",
+                                        "data": {
+                                          "id": "${id}"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "componentId": "u:8e4bf4626d44",
+                                      "ignoreError": false,
+                                      "actionType": "reload",
+                                      "args": {
+                                        "resetPage": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "id": "u:f58df3b1af71",
+                              "level": "primary",
+                              "confirmText": "是否确认缴费",
+                              "disabledOn": "${isPayed!=\"否\"}"
+                            }
+                          ],
+                          "id": "u:7307df6e91ab",
+                          "md": 2
+                        }
+                      ],
+                      "id": "u:9356dda7ac40",
+                      "label": "操作",
+                      "placeholder": "-"
+                    }
+                  ],
+                  "bulkActions": [
+                  ],
+                  "itemActions": [
+                  ],
+                  "features": [
+                  ],
+                  "filterColumnCount": 3,
+                  "id": "u:8e4bf4626d44",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {
+                  },
+                  "headerToolbar": [
+                    {
+                      "type": "columns-toggler",
+                      "align": "left"
+                    },
+                    {
+                      "type": "export-csv",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:09ec247a83ea",
+                      "align": "left"
+                    }
+                  ],
+                  "footerToolbar": [
+                    {
+                      "type": "switch-per-page",
+                      "align": "left"
+                    },
+                    {
+                      "type": "pagination",
+                      "align": "left"
+                    }
+                  ],
+                  "alwaysShowPagination": true,
+                  "autoFillHeight": true,
+                  "initFetch": false
+                }
+              ],
+              "api": {
+                "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                "method": "get"
+              },
+              "resetAfterSubmit": true,
+              "actions": [
+                {
+                  "type": "button",
+                  "label": "结课",
+                  "onEvent": {
+                    "click": {
+                      "actions": [
+                        {
+                          "ignoreError": false,
+                          "actionType": "ajax",
+                          "outputVar": "responseResult",
+                          "options": {
+                          },
+                          "api": {
+                            "url": "http://127.0.0.1:5000/closeCourse",
+                            "method": "post",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {
+                            },
+                            "data": {
+                              "courseID": "${courseID}"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "id": "u:809f080f91b4",
+                  "level": "warning",
+                  "size": "lg",
+                  "confirmText": "是否结课并向学员邮箱内发送课程评价问卷？"
+                }
+              ]
+            }
+          ],
+          "id": "u:a2238e7eaa2b"
+        },
+        {
+          "title": "调查问卷管理",
+          "body": [
+            {
+              "id": "u:1865e3f85f33",
+              "type": "form",
+              "title": "",
+              "mode": "horizontal",
+              "dsType": "api",
+              "feat": "Insert",
+              "body": [
+                {
+                  "name": "courseID",
+                  "label": "请输入课程ID",
+                  "type": "input-text",
+                  "id": "u:b5f79a9f39eb",
+                  "validateOnChange": true,
+                  "validateApi": {
+                    "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                    "method": "post",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "size": "md",
+                  "mode": "inline"
+                },
+                {
+                  "type": "button",
+                  "label": "查询",
+                  "onEvent": {
+                    "click": {
+                      "weight": 0,
+                      "actions": [
+                        {
+                          "componentId": "u:6941fe207e9d",
+                          "ignoreError": false,
+                          "actionType": "reload"
+                        }
+                      ]
+                    }
+                  },
+                  "level": "primary",
+                  "id": "u:5c448d64e2c8",
+                  "themeCss": {
+                    "className": {
+                      "padding-and-margin:default": {
+                        "marginLeft": "0",
+                        "marginBottom": "0px"
+                      }
+                    }
+                  },
+                  "block": false,
+                  "size": "md"
+                }
+              ],
+              "api": {
+                "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                "method": "get"
+              },
+              "resetAfterSubmit": true,
+              "actions": [
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "post",
+                    "url": "http://127.0.0.1:5000/getQuestionnaire",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "name": "questionnaireID",
+                      "label": "调查问卷ID",
+                      "type": "text",
+                      "id": "u:544bbe164c43"
+                    },
+                    {
+                      "name": "teacherScore",
+                      "label": "教师评分",
+                      "type": "text",
+                      "id": "u:42807d373401"
+                    },
+                    {
+                      "type": "text",
+                      "label": "课程评分",
+                      "name": "courseScore",
+                      "id": "u:3daf10524118"
+                    },
+                    {
+                      "type": "text",
+                      "label": "执行人评分",
+                      "name": "executorScore",
+                      "id": "u:5f026dcdd9ed"
+                    },
+                    {
+                      "type": "text",
+                      "label": "意见和建议",
+                      "name": "comment",
+                      "id": "u:bf230096c873"
+                    }
+                  ],
+                  "bulkActions": [
+                  ],
+                  "itemActions": [
+                  ],
+                  "id": "u:6941fe207e9d",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {
+                  },
+                  "initFetch": false,
+                  "footerToolbar": [
+                    {
+                      "type": "pagination",
+                      "align": "left"
+                    },
+                    {
+                      "type": "switch-per-page",
+                      "align": "left"
+                    }
+                  ],
+                  "alwaysShowPagination": true,
+                  "autoFillHeight": true,
+                  "headerToolbar": [
+                    {
+                      "type": "columns-toggler",
+                      "align": "left"
+                    },
+                    {
+                      "type": "export-csv",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:ecb5f4c61e6a",
+                      "align": "left"
+                    }
+                  ]
+                },
+                {
+                  "type": "button",
+                  "label": "生成汇总表",
+                  "onEvent": {
+                    "click": {
+                      "actions": [
+                        {
+                          "ignoreError": false,
+                          "actionType": "ajax",
+                          "outputVar": "responseResult",
+                          "options": {
+                          },
+                          "api": {
+                            "url": "http://127.0.0.1:5000/makeSummary",
+                            "method": "post",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {
+                            },
+                            "data": {
+                              "courseID": "${courseID}"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "id": "u:00029df9b945",
+                  "level": "warning",
+                  "size": "lg",
+                  "confirmText": "调查问卷可能还未收集完毕，是否暂停收集并生成总结表？"
+                }
+              ]
+            }
+          ],
+          "id": "u:e6e6849c35f4"
+        },
+        {
+          "title": "总结表汇总",
+          "body": [
+            {
+              "id": "u:085058d299ca",
+              "type": "form",
+              "title": "",
+              "mode": "horizontal",
+              "dsType": "api",
+              "feat": "Insert",
+              "body": [
+                {
+                  "name": "courseID",
+                  "label": "请输入课程ID",
+                  "type": "input-text",
+                  "id": "u:841862156147",
+                  "validateOnChange": true,
+                  "validateApi": {
+                    "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                    "method": "post",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "size": "md",
+                  "mode": "inline"
+                },
+                {
+                  "type": "button",
+                  "label": "查询",
+                  "onEvent": {
+                    "click": {
+                      "weight": 0,
+                      "actions": [
+                        {
+                          "componentId": "u:77dbe24b7991",
+                          "ignoreError": false,
+                          "actionType": "reload",
+                          "args": {
+                            "resetPage": true
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "level": "primary",
+                  "id": "u:ddc5afb7108b",
+                  "themeCss": {
+                    "className": {
+                      "padding-and-margin:default": {
+                        "marginLeft": "0",
+                        "marginBottom": "0px"
+                      }
+                    }
+                  },
+                  "block": false,
+                  "size": "md"
+                }
+              ],
+              "api": {
+                "url": "http://127.0.0.1:5000/verifyCourseIDWithExecutorID",
+                "method": "get"
+              },
+              "resetAfterSubmit": true,
+              "actions": [
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "post",
+                    "url": "http://127.0.0.1:5000/getSummary",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {
+                    },
+                    "dataType": "json",
+                    "data": {
+                      "courseID": "${courseID}"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "name": "summaryID",
+                      "label": "汇总表ID",
+                      "type": "text",
+                      "id": "u:86ca10e02ef0"
+                    },
+                    {
+                      "name": "courseName",
+                      "label": "课程名称",
+                      "type": "text",
+                      "id": "u:8c264fbb338f"
+                    },
+                    {
+                      "type": "text",
+                      "label": "教师平均评分",
+                      "name": "teacherScore",
+                      "id": "u:5e5f4b6690e6"
+                    },
+                    {
+                      "type": "text",
+                      "label": "课程平均得分",
+                      "name": "courseScore",
+                      "id": "u:99ea980b277c"
+                    },
+                    {
+                      "type": "text",
+                      "label": "执行人平均得分",
+                      "name": "executorScore",
+                      "id": "u:e454693be4b3"
+                    },
+                    {
+                      "type": "text",
+                      "label": "总参与人数",
+                      "name": "totalStudent",
+                      "id": "u:b4d6d2d92fb2"
+                    },
+                    {
+                      "type": "text",
+                      "label": "总金额",
+                      "name": "money",
+                      "id": "u:ba164488fa84"
+                    }
+                  ],
+                  "bulkActions": [
+                  ],
+                  "itemActions": [
+                  ],
+                  "id": "u:77dbe24b7991",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {
+                  },
+                  "initFetch": false,
+                  "footerToolbar": [
+                    {
+                      "type": "switch-per-page",
+                      "align": "left"
+                    },
+                    {
+                      "type": "pagination",
+                      "align": "left"
+                    }
+                  ],
+                  "alwaysShowPagination": true,
+                  "autoFillHeight": true,
+                  "headerToolbar": [
+                    {
+                      "type": "columns-toggler",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:72cdadc05502",
+                      "align": "left"
+                    },
+                    {
+                      "type": "export-csv",
+                      "align": "left"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "id": "u:4138a7f929ec"
+        }
+      ],
+      "id": "u:04cb9022a591",
+      "tabsMode": "vertical"
+    }
+  ],
+  "id": "u:27379f2098b0",
+  "regions": [
+    "body",
+    "header"
+  ],
+  "pullRefresh": {
+    "disabled": true
+  },
+  "asideResizor": true,
+  "asideSticky": false,
+  "themeCss": {
+    "titleControlClassName": {
+      "font:hover": {
+        "font-family": "-apple-system"
+      },
+      "font:default": {
+      }
+    },
+    "headerControlClassName": {
+      "background:hover": "var(--colors-brand-5)",
+      "background:default": "var(--colors-brand-5)"
+    },
+    "bodyControlClassName": {
+      "padding-and-margin:default": {
+        "marginTop": "var(--sizes-size-0)",
+        "marginRight": "var(--sizes-size-0)",
+        "marginBottom": "var(--sizes-size-0)",
+        "marginLeft": "var(--sizes-size-0)",
+        "paddingTop": "var(--sizes-size-0)",
+        "paddingRight": "var(--sizes-size-0)",
+        "paddingBottom": "var(--sizes-size-0)",
+        "paddingLeft": "var(--sizes-size-0)"
+      }
+    }
+  }
+};
+        let amisScoped = amis.embed('#root', amisJSON);
+      })();
+    </script>
+  </body>
+</html>

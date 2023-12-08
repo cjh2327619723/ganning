@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="./sdk/sdk.css" />
+    <link rel="stylesheet" href="./sdk/helper.css" />
+    <link rel="stylesheet" href="./sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="./sdk/sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+  "type": "page",
+  "title": "公司宣传页面",
+  "body": [
+    {
+      "type": "tpl",
+      "tpl": "欢迎访问浩奇公司宣传网站！",
+      "inline": true,
+      "wrapperComponent": "h1",
+      "id": "u:3f99b50c6c25",
+      "themeCss": {
+        "baseControlClassName": {
+          "font:default": {
+            "fontSize": "var(--fonts-size-1)"
+          }
+        }
+      }
+    },
+    {
+      "type": "tpl",
+      "tpl": "",
+      "inline": true,
+      "wrapperComponent": "",
+      "id": "u:dc9a5b6c1e03"
+    },
+    {
+      "type": "tpl",
+      "tpl": "如果您需要申请培训，请点击此",
+      "inline": true,
+      "wrapperComponent": "",
+      "id": "u:7de37f1c9632",
+      "themeCss": {
+        "baseControlClassName": {
+          "font:default": {
+            "fontSize": "var(--fonts-size-5)"
+          }
+        }
+      }
+    },
+    {
+      "type": "link",
+      "value": "http://www.baidu.com/",
+      "id": "u:c3229cffe5a3",
+      "href": "http://127.0.0.1:5500/receiveCompanyApply.html",
+      "body": "公司培训申请",
+      "className": "text-lg b-primary"
+    },
+    {
+      "type": "tpl",
+      "tpl": "如果您想参加我们的培训，请查看下面的表格",
+      "inline": false,
+      "wrapperComponent": "",
+      "id": "u:77d613c2e6bb",
+      "themeCss": {
+        "baseControlClassName": {
+          "font:default": {
+            "fontSize": "var(--fonts-size-5)"
+          }
+        }
+      }
+    },
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": {
+        "method": "get",
+        "url": "http://127.0.0.1:5000/getCourseForMain",
+        "requestAdaptor": "",
+        "adaptor": "",
+        "messages": {
+        },
+        "dataType": "json"
+      },
+      "columns": [
+        {
+          "name": "courseID",
+          "label": "课程ID",
+          "type": "text",
+          "id": "u:3ef14cd43945"
+        },
+        {
+          "name": "courseName",
+          "label": "课程名称",
+          "type": "text",
+          "id": "u:107061cb426a"
+        },
+        {
+          "type": "text",
+          "label": "课程内容",
+          "name": "courseContent",
+          "id": "u:de8f5cc43aa0"
+        },
+        {
+          "type": "text",
+          "label": "开始时间",
+          "name": "startTime",
+          "id": "u:f6616503aa6b"
+        },
+        {
+          "type": "text",
+          "label": "结束时间",
+          "name": "endTime",
+          "id": "u:5a753274a9fb"
+        },
+        {
+          "type": "text",
+          "label": "培训地点",
+          "name": "coursePlace",
+          "id": "u:b6945730ab8c"
+        },
+        {
+          "type": "text",
+          "label": "培训费用",
+          "name": "free",
+          "id": "u:f489bea6d03b"
+        },
+        {
+          "type": "button",
+          "label": "报名",
+          "onEvent": {
+            "click": {
+              "actions": [
+                {
+                  "ignoreError": false,
+                  "actionType": "url",
+                  "args": {
+                    "url": "http://127.0.0.1:5500/receiveEntryform.html",
+                    "params": [
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "id": "u:f5d5440af687",
+          "placeholder": "-",
+          "level": "primary"
+        }
+      ],
+      "bulkActions": [
+      ],
+      "itemActions": [
+      ],
+      "id": "u:cb9dab5a8a4b",
+      "perPageAvailable": [
+        10
+      ],
+      "messages": {
+      },
+      "primaryField": "courseID",
+      "footerToolbar": [
+        {
+          "type": "switch-per-page",
+          "align": "left"
+        },
+        {
+          "type": "pagination",
+          "align": "left"
+        }
+      ],
+      "alwaysShowPagination": true,
+      "autoFillHeight": true,
+      "headerToolbar": [
+        {
+          "type": "columns-toggler",
+          "align": "left",
+          "tpl": "内容",
+          "wrapperComponent": "",
+          "id": "u:fb3d25e50fed"
+        },
+        {
+          "type": "export-csv",
+          "align": "left"
+        }
+      ],
+      "initFetch": true
+    }
+  ],
+  "id": "u:2697c03e3b92",
+  "pullRefresh": {
+    "disabled": true
+  },
+  "regions": [
+    "body"
+  ]
+};
+        let amisScoped = amis.embed('#root', amisJSON);
+      })();
+    </script>
+  </body>
+</html>

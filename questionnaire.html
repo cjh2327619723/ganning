@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="./sdk/sdk.css" />
+    <link rel="stylesheet" href="./sdk/helper.css" />
+    <link rel="stylesheet" href="./sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="./sdk/sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+  "type": "page",
+  "title": "调查问卷",
+  "body": [
+    {
+      "id": "u:309d10e484d3",
+      "type": "form",
+      "title": "",
+      "mode": "horizontal",
+      "dsType": "api",
+      "feat": "Insert",
+      "body": [
+        {
+          "name": "courseID",
+          "label": "课程ID",
+          "type": "input-text",
+          "id": "u:f0c719dc2db4",
+          "validateOnChange": true,
+          "validateApi": {
+            "url": "http://127.0.0.1:5000/verifyCourseID",
+            "method": "post",
+            "requestAdaptor": "",
+            "adaptor": "",
+            "messages": {
+            },
+            "dataType": "json"
+          }
+        },
+        {
+          "name": "teacherScore",
+          "label": "教师评分",
+          "type": "select",
+          "id": "u:ccdb7df6eee3",
+          "multiple": false,
+          "options": [
+            {
+              "label": "1",
+              "value": "1"
+            },
+            {
+              "label": "2",
+              "value": "2"
+            },
+            {
+              "label": "3",
+              "value": "3"
+            },
+            {
+              "label": "4",
+              "value": "4"
+            },
+            {
+              "label": "5",
+              "value": "5"
+            }
+          ],
+          "value": ""
+        },
+        {
+          "name": "courseScore",
+          "label": "课程评分",
+          "type": "select",
+          "id": "u:ffb072b204e4",
+          "multiple": false,
+          "options": [
+            {
+              "label": "1",
+              "value": "1"
+            },
+            {
+              "label": "2",
+              "value": "2"
+            },
+            {
+              "label": "3",
+              "value": "3"
+            },
+            {
+              "label": "4",
+              "value": "4"
+            },
+            {
+              "label": "5",
+              "value": "5"
+            }
+          ],
+          "value": ""
+        },
+        {
+          "name": "executorScore",
+          "label": "执行人评分",
+          "type": "select",
+          "id": "u:54dffc06d511",
+          "multiple": false,
+          "options": [
+            {
+              "label": "1",
+              "value": "1"
+            },
+            {
+              "label": "2",
+              "value": "2"
+            },
+            {
+              "label": "3",
+              "value": "3"
+            },
+            {
+              "label": "4",
+              "value": "4"
+            },
+            {
+              "label": "5",
+              "value": "5"
+            }
+          ],
+          "value": ""
+        },
+        {
+          "name": "comment",
+          "label": "意见和建议",
+          "type": "textarea",
+          "id": "u:1b0d99d5e3dc"
+        }
+      ],
+      "api": {
+        "url": "http://127.0.0.1:5000/receiveQuestionnaire",
+        "method": "post",
+        "requestAdaptor": "",
+        "adaptor": "",
+        "messages": {
+        },
+        "dataType": "json"
+      },
+      "actions": [
+        {
+          "type": "button",
+          "label": "提交",
+          "onEvent": {
+            "click": {
+              "actions": [
+                {
+                  "actionType": "submit",
+                  "componentId": "u:309d10e484d3"
+                }
+              ]
+            }
+          },
+          "level": "primary",
+          "id": "u:4d8e5295b1ca"
+        }
+      ],
+      "resetAfterSubmit": true
+    }
+  ],
+  "id": "u:d58db0d1b65f",
+  "pullRefresh": {
+    "disabled": true
+  },
+  "regions": [
+    "body",
+    "header"
+  ],
+  "themeCss": {
+    "headerControlClassName": {
+      "background:default": "var(--colors-brand-5)"
+    }
+  }
+};
+        let amisScoped = amis.embed('#root', amisJSON);
+      })();
+    </script>
+  </body>
+</html>
